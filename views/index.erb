@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Mastermind</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+  </head>
+
+  <body>
+    <!--<%= @code %> -->
+    <% if @tries <= 0 %>
+      <div class="lose">
+        <p> You lose</p>
+        <p>The code is <%= @code %></p>
+        <a href="/newgame">Start over</a>
+      </div>
+
+    <% elsif @win %>
+      <div class="win">
+        <p><%= @code %></p>
+        <p> You win!</p>
+        <a href="/newgame">Start over</a>
+      </div>
+
+    <% else %>
+      <div class="response">
+        <p id="tries"><%= @tries %> tries remaining</p>
+        <% if @history != [] %>
+          <% @history.reverse.each do |guess| %>
+              <p><%= guess %></p>
+              <% response = check_guess(guess) %>
+              <% if check_guess(guess) == "" %>
+                <br>
+              <% else %>
+                <p><%= response %></p>
+              <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="guess">
+        <h3>Mastermind</h3>
+        <p>Enter a four digit number</p>
+        <p id="digits">(only digits 1-6)</p>
+        <form method ="POST" action="/">
+          <input type="number" name="guess" size="4" value="<%= @guess_cache %>" autofocus>
+        </form>
+        <% if @history != [] and @valid == true%>
+          <p><%= @history[-1]%></p>
+          <p><%= check_guess(@history[-1]) %></p>
+        <% elsif @valid == false %>
+          <p id="error">Invalid guess</p>
+        <% end %>
+      </div>
+
+      <div class="key">
+        <p>⚈ indicates a digit in the correct position</p>
+        <p>○ indicates a correct digit in the wrong position</p>
+      </div>
+  <% end %>
+  </body>
+</html>

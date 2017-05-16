@@ -1,0 +1,105 @@
+@font-face {
+ font-family:'digital-clock-font';
+ src: url('digital-7.ttf');
+}
+
+body {
+  background-color: black;
+  text-align: center;
+  color: #20C20E;
+  font-family: "digital-clock-font";
+  font-size: 20px;
+}
+
+a {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+}
+
+a:link, a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.response {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20%;
+}
+
+.response p {
+  font-size: 20px;
+  margin: 10px;
+}
+
+#tries {
+  margin: 20px 10px;
+  color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 5px;
+}
+
+div {
+  height: 50%;
+  width: 100%;
+  margin: 0px;
+  float: left;
+}
+
+.guess {
+  position: relative;
+  top: 50px;
+  height: 500px;
+  font-size: 36px;
+}
+
+.guess p {
+  margin: 10px 0px;
+}
+
+#digits {
+  margin: 0px 10px 10px 10px;
+  font-size: 20px;
+}
+
+#error {
+  font-weight: bold;
+  font-size: 20px
+}
+
+.guess form {
+  text-align: center;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.key {
+  font-size: 20px;
+}
+
+.win, .lose p {
+  font-size: 50px;
+}
