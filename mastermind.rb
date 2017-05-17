@@ -11,33 +11,40 @@ end
 get "/newgame" do
   session[:history] = []
   session[:code] = set_code
-  session[:tries] = 12
-  session[:guess_cache] = "1111"
   redirect to("/")
 end
 
 get "/" do
   if session[:code].nil?
     redirect to "/newgame"
+  elsif session[:history] != [] and win?(session[:guess_cache], session[:code])
+    redirect to "/win"
+  elsif session[:history].length >= 12
+    redirect to "/lose"
   else
-    @tries = session[:tries]
     @history = session[:history]
-    @valid = check_guess_valid?(session[:guess_cache])
-    @guess_cache = @valid? nil : session[:guess_cache]
-    @win = win?(session[:guess_cache], session[:code])
     @code = session[:code]
+    if !session[:guess_cache].nil?
+      @guess_cache = check_guess_valid?(session[:guess_cache])? nil : session[:guess_cache]
+    end
     erb :index
   end
 end
 
+get "/win" do
+  @code = session[:code]
+  erb :win
+end
+
+get "/lose" do
+  @code = session[:code]
+  erb :lose
+end
+
 post "/" do
-  #@lose = true if session[:tries] == 0
-  #@win = true if win?(params[:guess], session[:code])
-  #session[:valid_guess] = check_guess_valid?(params[:guess])
   session[:guess_cache] = params[:guess]
   if check_guess_valid?(params[:guess])
     session[:history] << params[:guess]
-    session[:tries] -= 1
   end
   redirect to "/"
 end
